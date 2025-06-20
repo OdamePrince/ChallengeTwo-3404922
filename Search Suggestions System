@@ -1,0 +1,28 @@
+class SearchSuggestionSystem {
+    constructor(products) {
+        this.products = products.sort();
+    }
+
+    getSuggestions(searchWord) {
+        const allSuggestions = [];
+        let currentPrefix = "";
+
+        for (const char of searchWord) {
+            currentPrefix += char;
+            const prefixSuggestions = [];
+
+            for (const product of this.products) {
+                if (product.startsWith(currentPrefix)) {
+                    prefixSuggestions.push(product);
+                }
+                if (prefixSuggestions.length === 3) {
+                    break;
+                }
+            }
+
+            allSuggestions.push(prefixSuggestions);
+        }
+
+        return allSuggestions;
+    }
+}
